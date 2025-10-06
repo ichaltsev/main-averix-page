@@ -88,9 +88,7 @@ const truncateAddress = (address) => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [isConnecting, setIsConnecting] = useState(false);
-  const [detectingWallets, setDetectingWallets] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('averix_wallet_user');
