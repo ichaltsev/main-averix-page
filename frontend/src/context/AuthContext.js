@@ -139,7 +139,8 @@ export const AuthProvider = ({ children }) => {
 
   const disconnectWallet = () => {
     setUser(null);
-    localStorage.removeItem('averix_wallet_user');
+    localStorage.removeItem('wallet_connection');
+    localStorage.removeItem('averix_wallet_user'); // Clean up old storage too
   };
 
   const getWalletDetectionStatus = (walletId) => {
