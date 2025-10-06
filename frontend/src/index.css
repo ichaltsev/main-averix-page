@@ -49,21 +49,21 @@ code {
 
   /* Theme A - Current Monochrome (Default Dark) */
   .dark, [data-theme="theme-a"] {
-        --background: 206 36% 4%;  /* #0A0A0A */
+        --background: 0 0% 4%;     /* #0A0A0A */
         --foreground: 0 0% 88%;    /* #E0E0E0 */
-        --card: 210 29% 9%;        /* #161616 */
+        --card: 0 0% 9%;           /* #161616 */
         --card-foreground: 0 0% 88%;
-        --popover: 210 29% 9%;
+        --popover: 0 0% 9%;
         --popover-foreground: 0 0% 88%;
         --primary: 0 0% 88%;
-        --primary-foreground: 0 0% 9%;
+        --primary-foreground: 0 0% 4%;
         --secondary: 0 0% 17%;     /* #2A2A2A */
         --secondary-foreground: 0 0% 88%;
         --muted: 0 0% 17%;
         --muted-foreground: 0 0% 70%;  /* #B3B3B3 */
         --accent: 0 0% 17%;
         --accent-foreground: 0 0% 88%;
-        --destructive: 0 62.8% 30.6%;
+        --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
         --border: 0 0% 17%;        /* #2A2A2A */
         --input: 0 0% 17%;
@@ -84,14 +84,14 @@ code {
         --popover: 215 21% 11%;
         --popover-foreground: 0 0% 95%;
         --primary: 0 0% 95%;
-        --primary-foreground: 0 0% 9%;
+        --primary-foreground: 0 0% 6%;
         --secondary: 215 18% 20%;  /* #232833 */
         --secondary-foreground: 0 0% 95%;
         --muted: 215 18% 20%;
         --muted-foreground: 0 0% 78%;  /* #C7C7C7 */
         --accent: 215 18% 20%;
         --accent-foreground: 0 0% 95%;
-        --destructive: 0 62.8% 30.6%;
+        --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
         --border: 215 18% 20%;     /* #232833 */
         --input: 215 18% 20%;
