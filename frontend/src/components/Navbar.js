@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Button } from './ui/button';
 import { Menu, X, LogOut, Wallet, Copy, Check } from 'lucide-react';
 import WalletModal from './WalletModal';
+import ThemeSwitcher from './ThemeSwitcher';
 import { toast } from '../hooks/use-toast';
 
 const Navbar = () => {
