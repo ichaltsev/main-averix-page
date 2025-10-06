@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import ThemeSwitcher from './ThemeSwitcher';
 import { 
   Table,
   TableBody,
