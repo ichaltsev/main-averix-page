@@ -17,7 +17,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <div className="App bg-background text-foreground min-h-screen">
+          <div className="App bg-[#0A0A0A] text-white min-h-screen">
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
