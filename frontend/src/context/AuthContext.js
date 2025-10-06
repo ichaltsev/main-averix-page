@@ -144,14 +144,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const getWalletDetectionStatus = (walletId) => {
-    if (detectingWallets) return 'detecting';
     const wallet = SUPPORTED_WALLETS.find(w => w.id === walletId);
     return wallet?.detected() ? 'installed' : 'not_installed';
   };
 
   const value = {
     user,
-    loading,
     isConnecting,
     connectWallet,
     disconnectWallet,
