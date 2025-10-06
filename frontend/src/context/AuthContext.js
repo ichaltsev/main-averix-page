@@ -91,17 +91,17 @@ export const AuthProvider = ({ children }) => {
   const [isConnecting, setIsConnecting] = useState(false);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('averix_wallet_user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    // Check for stored wallet connection from new clean system
+    const storedConnection = localStorage.getItem('wallet_connection');
+    if (storedConnection) {
+      try {
+        const connectionData = JSON.parse(storedConnection);
+        setUser(connectionData);
+      } catch (error) {
+        console.warn('Failed to parse stored wallet connection');
+        localStorage.removeItem('wallet_connection');
+      }
     }
-    
-    // Simulate wallet detection
-    setTimeout(() => {
-      setDetectingWallets(false);
-    }, 1000);
-    
-    setLoading(false);
   }, []);
 
   const connectWallet = async (walletId) => {
