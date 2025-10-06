@@ -410,23 +410,31 @@ const PositionTabs = ({
             </div>
 
             <div className="p-4 bg-muted rounded-lg">
-              <h4 className="font-semibold mb-3">Risk Settings</h4>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span>Max Risk per Trade:</span>
-                  <span className="font-mono">5%</span>
+              <h4 className="font-semibold mb-3">Settings</h4>
+              <div className="space-y-4">
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Max Risk per Trade:</span>
+                    <span className="font-mono">5%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Currency:</span>
+                    <span className="font-mono">AVRX</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Exchange Rate:</span>
+                    <span className="font-mono">1 AVRX = 1 USD</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Account Type:</span>
+                    <span>Demo</span>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span>Currency:</span>
-                  <span className="font-mono">AVRX</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Exchange Rate:</span>
-                  <span className="font-mono">1 AVRX = 1 USD</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Account Type:</span>
-                  <span>Demo</span>
+                <div className="border-t border-border pt-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">Theme</span>
+                    <ThemeSwitcher variant="outline" size="sm" showLabel />
+                  </div>
                 </div>
               </div>
             </div>
