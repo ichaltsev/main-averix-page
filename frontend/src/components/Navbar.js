@@ -132,8 +132,9 @@ const Navbar = () => {
               
               {user ? (
                 <div className="flex items-center space-x-4">
+                  <ThemeSwitcher />
                   <Link to="/dashboard">
-                    <Button variant="outline" size="sm" className="border-[#2A2A2A] text-[#E0E0E0] hover:bg-[#1C1C1C] hover:border-[#3A3A3A]">
+                    <Button variant="outline" size="sm" className="border-border text-foreground hover:bg-accent hover:border-accent-foreground">
                       Dashboard
                     </Button>
                   </Link>
