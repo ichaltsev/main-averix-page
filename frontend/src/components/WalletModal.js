@@ -44,19 +44,44 @@ const WalletModal = ({ isOpen, onClose }) => {
   const { connectWallet } = useAuth();
   const [connectingWallet, setConnectingWallet] = useState(null);
 
-  const handleWalletConnect = async (walletId) => {
+  const handleWalletConnect = async (wallet) => {
     try {
-      setConnectingWallet(walletId);
-      await connectWallet(walletId);
+      setConnectingWallet(wallet.id);
+      
+      // Check if wallet is installed
+      const isInstalled = checkWalletInstalled(wallet.id);
+      
+      if (!isInstalled) {
+        // Redirect to download page
+        window.open(wallet.downloadUrl, '_blank');
+        return;
+      }
+
+      // Mock connection for demo - in real app this would use wallet APIs
+      const mockAddress = generateMockAddress();
+      const connectionData = {
+        address: mockAddress,
+        walletType: wallet.name,
+        walletIcon: wallet.icon,
+        truncatedAddress: `${mockAddress.slice(0, 6)}...${mockAddress.slice(-4)}`
+      };
+
+      // Store connection in localStorage
+      localStorage.setItem('wallet_connection', JSON.stringify(connectionData));
+
       toast({
         title: "Wallet Connected!",
-        description: "Welcome to Averix. Your trading journey begins now.",
+        description: `Connected to ${wallet.name}. Welcome to Averix!`,
       });
+      
       onClose();
+      
+      // Trigger page reload to update auth state
+      window.location.reload();
     } catch (error) {
       toast({
         title: "Connection Failed",
-        description: error.message || "Unable to connect wallet. Please try again.",
+        description: "Unable to connect wallet. Please try again.",
         variant: "destructive"
       });
     } finally {
@@ -64,40 +89,22 @@ const WalletModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const getStatusIcon = (walletId) => {
-    const status = getWalletDetectionStatus(walletId);
-    const isCurrentlyConnecting = connectingWallet === walletId;
-    
-    if (isCurrentlyConnecting) {
-      return <Loader2 className="h-4 w-4 animate-spin text-white" />;
-    }
-    
-    switch (status) {
-      case 'detecting':
-        return <Loader2 className="h-3 w-3 animate-spin text-[#9A9A9A]" />;
-      case 'installed':
-        return <CheckCircle className="h-4 w-4 text-[#CFCFCF]" />;
-      case 'not_installed':
-        return <Download className="h-3 w-3 text-[#9A9A9A]" />;
+  const checkWalletInstalled = (walletId) => {
+    // Simple wallet detection
+    switch (walletId) {
+      case 'metamask':
+        return typeof window !== 'undefined' && !!window.ethereum;
+      case 'trust':
+        return typeof window !== 'undefined' && !!window.ethereum && !!window.ethereum.isTrust;
+      case 'binance':
+        return typeof window !== 'undefined' && !!window.BinanceChain;
       default:
-        return null;
+        return false; // For demo, show as not installed
     }
   };
 
-  const getStatusText = (walletId) => {
-    const status = getWalletDetectionStatus(walletId);
-    
-    switch (status) {
-      case 'detecting': return 'Detecting...';
-      case 'installed': return 'Installed';
-      case 'not_installed': return 'Install';
-      default: return '';
-    }
-  };
-
-  const isWalletClickable = (walletId) => {
-    const status = getWalletDetectionStatus(walletId);
-    return status === 'installed' && !isConnecting;
+  const generateMockAddress = () => {
+    return '0x' + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
   };
 
   return (
