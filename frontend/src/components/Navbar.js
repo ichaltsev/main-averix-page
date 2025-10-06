@@ -163,13 +163,16 @@ const Navbar = () => {
                   </Button>
                 </div>
               ) : (
-                <Button 
-                  onClick={() => setIsWalletModalOpen(true)}
-                  className="bg-[#E0E0E0] text-[#0A0A0A] hover:bg-[#FFFFFF] transition-all duration-200 shadow-[0_0_20px_rgba(224,224,224,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-                >
-                  <Wallet className="h-4 w-4 mr-2" />
-                  Connect Wallet
-                </Button>
+                <div className="flex items-center space-x-4">
+                  <ThemeSwitcher />
+                  <Button 
+                    onClick={() => setIsWalletModalOpen(true)}
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200"
+                  >
+                    <Wallet className="h-4 w-4 mr-2" />
+                    Connect Wallet
+                  </Button>
+                </div>
               )}
             </div>
 
