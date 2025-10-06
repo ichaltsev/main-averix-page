@@ -3,11 +3,45 @@ import { useAuth } from '../context/AuthContext';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
-import { Loader2, Wallet, AlertCircle, Download, CheckCircle } from 'lucide-react';
+import { Loader2, Wallet, AlertCircle, ExternalLink } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
 
+// BNB-compatible hot wallets with official SVG logos
+const BNB_WALLETS = [
+  {
+    id: 'metamask',
+    name: 'MetaMask',
+    icon: `<svg width="40" height="40" viewBox="0 0 318.6 318.6" xmlns="http://www.w3.org/2000/svg"><defs><style>.a{fill:#e2761b;stroke:#e2761b;stroke-linecap:round;stroke-linejoin:round;}.b{fill:#e4761b;stroke:#e4761b;stroke-linecap:round;stroke-linejoin:round;}.c{fill:#d7c1b3;stroke:#d7c1b3;stroke-linecap:round;stroke-linejoin:round;}.d{fill:#233447;stroke:#233447;stroke-linecap:round;stroke-linejoin:round;}.e{fill:#cd6116;stroke:#cd6116;stroke-linecap:round;stroke-linejoin:round;}.f{fill:#e4751f;stroke:#e4751f;stroke-linecap:round;stroke-linejoin:round;}.g{fill:#f6851b;stroke:#f6851b;stroke-linecap:round;stroke-linejoin:round;}.h{fill:#c0ad9e;stroke:#c0ad9e;stroke-linecap:round;stroke-linejoin:round;}.i{fill:#161616;stroke:#161616;stroke-linecap:round;stroke-linejoin:round;}.j{fill:#763d16;stroke:#763d16;stroke-linecap:round;stroke-linejoin:round;}</style></defs><polygon class="a" points="274.1,35.5 174.6,109.4 193,65.8"/><polygon class="a" points="44.4,35.5 143.1,110.1 125.6,65.8"/><polygon class="a" points="238.3,206.8 211.8,247.4 268.5,262.6 283.8,207.7"/><polygon class="a" points="35.8,207.7 51.1,262.6 107.8,247.4 81.3,206.8"/><polygon class="g" points="103.6,138.2 87.8,162.1 144.1,164.6 142.1,104.1"/><polygon class="g" points="214.9,138.2 175.9,103.4 174.6,164.6 230.8,162.1"/><polygon class="g" points="107.8,247.4 140.6,230.9 111.4,208.1"/><polygon class="g" points="177.9,230.9 211.8,247.4 207.1,208.1"/></svg>`,
+    downloadUrl: 'https://metamask.io/download/'
+  },
+  {
+    id: 'trust',
+    name: 'Trust Wallet',
+    icon: `<svg width="40" height="40" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#3375bb"/><stop offset="100%" style="stop-color:#3375bb"/></linearGradient></defs><rect width="32" height="32" rx="6" fill="url(#a)"/><path d="M16 4l10 6v10c0 6.2-4.2 12-10 12s-10-5.8-10-12V10l10-6z" fill="#fff"/><path d="M16 6.5L8 11.5v8.5c0 4.4 3.1 8.5 8 8.5s8-4.1 8-8.5v-8.5l-8-5z" fill="#3375bb"/></svg>`,
+    downloadUrl: 'https://trustwallet.com/download'
+  },
+  {
+    id: 'binance',
+    name: 'Binance Wallet',
+    icon: `<svg width="40" height="40" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="6" fill="#f3ba2f"/><path d="M16 6l2.5 2.5L16 11l-2.5-2.5L16 6zm-6 6l2.5-2.5L15 12l-2.5 2.5L10 12zm12 0l2.5 2.5L22 17l-2.5-2.5L22 12zm-6 2l2.5 2.5L16 19l-2.5-2.5L16 14zm-6 3l2.5 2.5L12.5 22 10 19.5 10 17zm12 0v2.5L19.5 22 17 19.5 19 17zm-6 5l2.5-2.5L16 22l-2.5-2.5L16 22z" fill="#fff"/></svg>`,
+    downloadUrl: 'https://www.binance.org/en/binance-wallet'
+  },
+  {
+    id: 'safepal',
+    name: 'SafePal',
+    icon: `<svg width="40" height="40" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="6" fill="#4a90e2"/><path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4zm0 4c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 3c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z" fill="#fff"/></svg>`,
+    downloadUrl: 'https://safepal.io/download'
+  },
+  {
+    id: 'rabby',
+    name: 'Rabby',
+    icon: `<svg width="40" height="40" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="6" fill="#7084ff"/><path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4zm-4 8c-1.1 0-2 0.9-2 2s0.9 2 2 2 2-0.9 2-2-0.9-2-2-2zm8 0c-1.1 0-2 0.9-2 2s0.9 2 2 2 2-0.9 2-2-0.9-2-2-2zm-4 6c-2.2 0-4 1.8-4 4h8c0-2.2-1.8-4-4-4z" fill="#fff"/></svg>`,
+    downloadUrl: 'https://rabby.io/'
+  }
+];
+
 const WalletModal = ({ isOpen, onClose }) => {
-  const { connectWallet, isConnecting, supportedWallets, getWalletDetectionStatus } = useAuth();
+  const { connectWallet } = useAuth();
   const [connectingWallet, setConnectingWallet] = useState(null);
 
   const handleWalletConnect = async (walletId) => {
