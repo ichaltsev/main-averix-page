@@ -187,16 +187,21 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 mt-8">
+        <div className="border-t border-[#2EE6D6]/20 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {currentYear} Averix. All rights reserved.
-            </p>
+            <div className="text-center md:text-left mb-4 md:mb-0">
+              <p className="text-gray-400 text-sm">
+                © {currentYear} Averix. All rights reserved.
+              </p>
+              <p className="text-[#2EE6D6] text-sm mt-1">
+                Backed by the Averix community. Launching Q4 2025.
+              </p>
+            </div>
             <div className="flex items-center space-x-4 text-sm text-gray-400">
               <span>Founder: Ivan Chaltsev</span>
               <a 
                 href="mailto:averix.found@gmail.com" 
-                className="hover:text-white transition-colors flex items-center"
+                className="hover:text-[#2EE6D6] transition-colors flex items-center"
               >
                 Contact <ExternalLink className="h-3 w-3 ml-1" />
               </a>
