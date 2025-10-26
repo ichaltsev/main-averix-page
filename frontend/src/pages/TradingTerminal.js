@@ -44,8 +44,11 @@ const TradingTerminal = () => {
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-6">
             <h1 className="text-2xl font-bold">Averix Trading Terminal</h1>
+            <Badge variant="outline" className="text-xs bg-[#2EE6D6]/10 border-[#2EE6D6] text-[#2EE6D6]">
+              BETA MODE
+            </Badge>
             <Badge variant="outline" className="text-xs">
-              DEMO ACCOUNT
+              Simulated Trades Only
             </Badge>
           </div>
           
