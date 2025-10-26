@@ -69,12 +69,12 @@ const Hero = () => {
             </p>
 
             {/* Enhanced CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               {user ? (
                 <Link to="/dashboard">
                   <Button 
                     size="lg" 
-                    className="group bg-[#E0E0E0] text-[#0A0A0A] hover:bg-[#FFFFFF] transition-all duration-300 text-lg px-8 py-6 font-semibold shadow-[0_0_20px_rgba(224,224,224,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+                    className="group bg-[#2EE6D6] text-[#081F2C] hover:bg-[#A4F4F9] transition-all duration-300 text-lg px-8 py-6 font-semibold shadow-[0_0_20px_rgba(46,230,214,0.3)] hover:shadow-[0_0_30px_rgba(164,244,249,0.4)]"
                   >
                     Open Dashboard
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -84,22 +84,32 @@ const Hero = () => {
                 <Button 
                   onClick={() => setIsWalletModalOpen(true)}
                   size="lg" 
-                  className="group bg-[#E0E0E0] text-[#0A0A0A] hover:bg-[#FFFFFF] transition-all duration-300 text-lg px-8 py-6 font-semibold shadow-[0_0_20px_rgba(224,224,224,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+                  className="group bg-[#2EE6D6] text-[#081F2C] hover:bg-[#A4F4F9] transition-all duration-300 text-lg px-8 py-6 font-semibold shadow-[0_0_20px_rgba(46,230,214,0.3)] hover:shadow-[0_0_30px_rgba(164,244,249,0.4)]"
                 >
                   <Wallet className="mr-2 h-5 w-5" />
                   Connect Wallet
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               )}
               
+              <Link to="/trade">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="group border-[#2EE6D6] text-[#2EE6D6] hover:bg-[#2EE6D6] hover:text-[#081F2C] transition-all duration-300 text-lg px-8 py-6 font-semibold"
+                >
+                  Try Demo Mode
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+
               <Button 
-                onClick={() => scrollToSection('about')}
-                variant="outline" 
-                size="lg" 
-                className="group border-[#2A2A2A] text-[#E0E0E0] hover:bg-[#1C1C1C] hover:border-[#3A3A3A] transition-all duration-300 text-lg px-8 py-6 font-semibold"
+                variant="ghost" 
+                size="lg"
+                className="group text-[#A4F4F9] hover:text-[#2EE6D6] hover:bg-[#081F2C]/50 transition-all duration-300 text-lg px-8 py-6 font-semibold"
+                onClick={() => window.open('https://t.me/averix_official', '_blank')}
               >
-                Explore Platform
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Join Telegram
               </Button>
             </div>
 
