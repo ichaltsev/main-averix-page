@@ -26,12 +26,45 @@ const Hero = () => {
     <>
       <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
         {/* Enhanced Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#161616] to-[#0A0A0A]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#081F2C] via-[#0A0A0A] to-[#081F2C]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(46,230,214,0.08)_0%,transparent_50%)] animate-pulse duration-[8s]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(164,244,249,0.06)_0%,transparent_50%)] animate-pulse duration-[6s]" />
+        
+        {/* Animated Chart Lines Background */}
+        <div className="absolute inset-0 opacity-20">
+          <svg className="w-full h-full" viewBox="0 0 1000 600" preserveAspectRatio="none">
+            <path 
+              d="M0,300 Q250,200 500,250 T1000,200" 
+              fill="none" 
+              stroke="url(#gradient1)" 
+              strokeWidth="2"
+              className="animate-pulse duration-[4s]"
+            />
+            <path 
+              d="M0,400 Q300,300 600,350 T1000,320" 
+              fill="none" 
+              stroke="url(#gradient2)" 
+              strokeWidth="2"
+              className="animate-pulse duration-[6s]"
+            />
+            <defs>
+              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#2EE6D6" stopOpacity="0.2" />
+                <stop offset="50%" stopColor="#2EE6D6" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#A4F4F9" stopOpacity="0.2" />
+              </linearGradient>
+              <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#A4F4F9" stopOpacity="0.2" />
+                <stop offset="50%" stopColor="#A4F4F9" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#2EE6D6" stopOpacity="0.2" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
         
         {/* Refined Animated Grid */}
         <div className="absolute inset-0 opacity-10">
-          <div className="h-full w-full bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:60px_60px] animate-pulse duration-[4s]" />
+          <div className="h-full w-full bg-[linear-gradient(rgba(46,230,214,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(46,230,214,0.1)_1px,transparent_1px)] bg-[size:60px_60px] animate-pulse duration-[4s]" />
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
