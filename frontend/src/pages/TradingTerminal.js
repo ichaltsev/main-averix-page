@@ -56,23 +56,21 @@ const TradingTerminal = () => {
             {/* Account Info */}
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-2">
-                <Wallet className="h-4 w-4" />
+                <Wallet className="h-4 w-4 text-[#2EE6D6]" />
                 <span className="text-muted-foreground">Balance:</span>
-                <span className="font-mono font-semibold">{balance.toFixed(2)} AVRX</span>
+                <span className="font-mono font-semibold text-[#2EE6D6]">10,000 TFT</span>
               </div>
               
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4" />
+                <TrendingUp className="h-4 w-4 text-[#A4F4F9]" />
                 <span className="text-muted-foreground">Equity:</span>
-                <span className="font-mono font-semibold">{equity.toFixed(2)} AVRX</span>
+                <span className="font-mono font-semibold text-[#A4F4F9]">{equity.toFixed(2)} TFT</span>
               </div>
               
               <div className="flex items-center gap-2">
                 <span className="text-muted-foreground">P/L:</span>
-                <span className={`font-mono font-semibold ${
-                  floatingPnL >= 0 ? 'text-green-500' : 'text-red-500'
-                }`}>
-                  {floatingPnL >= 0 ? '+' : ''}{floatingPnL.toFixed(2)} AVRX
+                <span className="font-mono font-semibold text-green-400">
+                  +3.2% (+320 TFT)
                 </span>
               </div>
             </div>
