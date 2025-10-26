@@ -55,12 +55,13 @@ const Hero = () => {
 
           {/* Enhanced Main Content */}
           <div className={`transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light mb-8 text-[#B3B3B3]">
-              Building the Future of
-              <span className="block mt-2 font-semibold text-[#E0E0E0]">
-                Decentralized Finance
-              </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 text-[#2EE6D6]">
+              Risk-Managed Web3 Prop Trading Platform
             </h2>
+            
+            <h3 className="text-xl sm:text-2xl font-semibold mb-8 text-[#A4F4F9]">
+              Stake, Trade, Earn.
+            </h3>
             
             <p className="text-lg sm:text-xl text-[#9A9A9A] mb-12 max-w-3xl mx-auto leading-relaxed">
               A decentralized prop trading platform that combines trading discipline with Web3 incentives. 
