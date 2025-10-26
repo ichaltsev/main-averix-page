@@ -42,6 +42,68 @@ const About = () => {
           </p>
         </div>
 
+        {/* For Traders / For Investors Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          <Card className="bg-gradient-to-br from-[#081F2C]/50 to-[#0A0A0A]/50 border-[#2EE6D6]/20 hover:border-[#2EE6D6]/40 transition-all duration-300">
+            <CardContent className="p-8">
+              <div className="flex items-center mb-6">
+                <TrendingUp className="h-8 w-8 text-[#2EE6D6] mr-3" />
+                <h3 className="text-2xl font-bold text-[#2EE6D6]">For Traders</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-[#2EE6D6] rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-[#B3B3B3] leading-relaxed">Trade with enforced risk management and mandatory stop-losses</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-[#2EE6D6] rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-[#B3B3B3] leading-relaxed">Compete in 30-day seasons for rewards and recognition</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-[#2EE6D6] rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-[#B3B3B3] leading-relaxed">Level up from Bronze to Prime through merit-based progression</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-[#081F2C]/50 to-[#0A0A0A]/50 border-[#A4F4F9]/20 hover:border-[#A4F4F9]/40 transition-all duration-300">
+            <CardContent className="p-8">
+              <div className="flex items-center mb-6">
+                <Users className="h-8 w-8 text-[#A4F4F9] mr-3" />
+                <h3 className="text-2xl font-bold text-[#A4F4F9]">For Investors</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-[#A4F4F9] rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-[#B3B3B3] leading-relaxed">Stake TFT tokens and earn rewards from trader performance</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-[#A4F4F9] rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-[#B3B3B3] leading-relaxed">Copy trade with Prime traders using transparent strategies</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-[#A4F4F9] rounded-full mt-2 flex-shrink-0" />
+                  <p className="text-[#B3B3B3] leading-relaxed">Access verifiable on-chain performance metrics</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Learn More Button */}
+        <div className="text-center mb-16">
+          <Link to="/whitepaper" className="inline-block">
+            <Button 
+              variant="outline" 
+              size="lg"
+              className="border-[#2EE6D6] text-[#2EE6D6] hover:bg-[#2EE6D6] hover:text-[#081F2C] transition-all duration-300"
+            >
+              Learn More in Whitepaper
+            </Button>
+          </Link>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <div className="space-y-6">
             <h3 className="text-3xl font-bold text-[#E0E0E0] mb-6 font-space-grotesk">The Problem We Solve</h3>
