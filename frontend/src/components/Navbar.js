@@ -23,22 +23,25 @@ const Navbar = () => {
     { name: 'Tokenomics', href: '/#tokenomics', section: 'tokenomics' },
     { name: 'Ecosystem', href: '/#ecosystem', section: 'ecosystem' },
     { name: 'Roadmap', href: '/#roadmap', section: 'roadmap' },
-    { name: 'Whitepaper', href: '/whitepaper', section: 'whitepaper' }
+    // ⬇️ replaced Whitepaper with external Docs
+    { name: 'Docs', href: 'https://averix.mintlify.app/', external: true }
   ];
+
+  const isExternalUrl = (url) => /^https?:\/\//i.test(url);
 
   useEffect(() => {
     const handleScroll = () => {
       if (location.pathname !== '/') return;
-      
+
       const sections = ['hero', 'about', 'tokenomics', 'ecosystem', 'roadmap'];
       const scrollPosition = window.scrollY + 100;
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const offsetTop = element.offsetTop;
           const height = element.offsetHeight;
-          
+
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + height) {
             setActiveSection(section);
             break;
@@ -52,21 +55,22 @@ const Navbar = () => {
   }, [location]);
 
   const handleNavClick = (href, section) => {
-    if (href.startsWith('/#')) {
-      if (location.pathname !== '/') {
-        navigate('/');
-        setTimeout(() => {
-          const element = document.getElementById(section);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
-      } else {
+    // do nothing for external links or non-hash internal routes
+    if (isExternalUrl(href) || !href.startsWith('/#')) {
+      setIsOpen(false);
+      return;
+    }
+
+    // smooth scroll for hash sections
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
         const element = document.getElementById(section);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const element = document.getElementById(section);
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
     setIsOpen(false);
   };
@@ -102,9 +106,9 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2 group">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_b4f9138b-d805-4933-9217-0f17e5eccf05/artifacts/e37qpmnv_logo.png" 
-                alt="Averix" 
+              <img
+                src="https://customer-assets.emergentagent.com/job_b4f9138b-d805-4933-9217-0f17e5eccf05/artifacts/e37qpmnv_logo.png"
+                alt="Averix"
                 className="h-8 w-8 transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
               />
               <span className="text-xl font-bold bg-gradient-to-r from-[#E0E0E0] to-[#B3B3B3] bg-clip-text text-transparent">
@@ -114,22 +118,47 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => handleNavClick(item.href, item.section)}
-                  className={`text-sm font-medium transition-all duration-200 hover:text-[#E0E0E0] ${
-                    (location.pathname === item.href || 
-                     (item.section && activeSection === item.section))
-                      ? 'text-[#E0E0E0] border-b border-[#FFFFFF]/50'
-                      : 'text-[#B3B3B3] hover:border-b hover:border-[#FFFFFF]/30'
-                  } pb-1`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
+              {navItems.map((item) => {
+                const isActive =
+                  (location.pathname === item.href) ||
+                  (item.section && activeSection === item.section);
+
+                // External link -> <a>
+                if (item.external || isExternalUrl(item.href)) {
+                  return (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`text-sm font-medium transition-all duration-200 hover:text-[#E0E0E0] ${
+                        isActive
+                          ? 'text-[#E0E0E0] border-b border-[#FFFFFF]/50'
+                          : 'text-[#B3B3B3] hover:border-b hover:border-[#FFFFFF]/30'
+                      } pb-1`}
+                    >
+                      {item.name}
+                    </a>
+                  );
+                }
+
+                // Internal link -> <Link>
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={() => handleNavClick(item.href, item.section)}
+                    className={`text-sm font-medium transition-all duration-200 hover:text-[#E0E0E0] ${
+                      isActive
+                        ? 'text-[#E0E0E0] border-b border-[#FFFFFF]/50'
+                        : 'text-[#B3B3B3] hover:border-b hover:border-[#FFFFFF]/30'
+                    } pb-1`}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
+
               {user ? (
                 <div className="flex items-center space-x-4">
                   <ThemeSwitcher />
@@ -138,13 +167,13 @@ const Navbar = () => {
                       Dashboard
                     </Button>
                   </Link>
-                  
+
                   <div className="flex items-center space-x-2 bg-gradient-to-r from-[#1C1C1C]/80 to-[#161616]/60 rounded-full px-3 py-2 border border-[#2A2A2A]">
-                    <div 
+                    <div
                       className="w-5 h-5 wallet-icon"
-                      dangerouslySetInnerHTML={{ __html: user.walletIcon }}
+                      dangerouslySetInnerHTML={{ __html: user?.walletIcon }}
                     />
-                    <span className="text-sm text-[#E0E0E0] font-mono">{user.truncatedAddress}</span>
+                    <span className="text-sm text-[#E0E0E0] font-mono">{user?.truncatedAddress}</span>
                     <button
                       onClick={copyAddress}
                       className="text-[#9A9A9A] hover:text-[#E0E0E0] transition-colors"
@@ -152,11 +181,11 @@ const Navbar = () => {
                       {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
                     </button>
                   </div>
-                  
-                  <Button 
+
+                  <Button
                     onClick={handleDisconnect}
-                    variant="ghost" 
-                    size="sm" 
+                    variant="ghost"
+                    size="sm"
                     className="text-[#B3B3B3] hover:text-[#E0E0E0] hover:bg-[#1C1C1C]"
                   >
                     <LogOut className="h-4 w-4" />
@@ -165,7 +194,7 @@ const Navbar = () => {
               ) : (
                 <div className="flex items-center space-x-4">
                   <ThemeSwitcher />
-                  <Button 
+                  <Button
                     onClick={() => setIsWalletModalOpen(true)}
                     className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200"
                   >
@@ -192,32 +221,56 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden bg-[#161616]/95 backdrop-blur-md border-t border-[#2A2A2A]">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => handleNavClick(item.href, item.section)}
-                  className={`block px-3 py-2 text-base font-medium transition-colors ${
-                    (location.pathname === item.href || 
-                     (item.section && activeSection === item.section))
-                      ? 'text-[#E0E0E0] bg-[#1C1C1C]'
-                      : 'text-[#B3B3B3] hover:text-[#E0E0E0] hover:bg-[#1C1C1C]/50'
-                  } rounded-md`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
+              {navItems.map((item) => {
+                const isActive =
+                  (location.pathname === item.href) ||
+                  (item.section && activeSection === item.section);
+
+                if (item.external || isExternalUrl(item.href)) {
+                  return (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsOpen(false)}
+                      className={`block px-3 py-2 text-base font-medium transition-colors ${
+                        isActive
+                          ? 'text-[#E0E0E0] bg-[#1C1C1C]'
+                          : 'text-[#B3B3B3] hover:text-[#E0E0E0] hover:bg-[#1C1C1C]/50'
+                      } rounded-md`}
+                    >
+                      {item.name}
+                    </a>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={() => handleNavClick(item.href, item.section)}
+                    className={`block px-3 py-2 text-base font-medium transition-colors ${
+                      isActive
+                        ? 'text-[#E0E0E0] bg-[#1C1C1C]'
+                        : 'text-[#B3B3B3] hover:text-[#E0E0E0] hover:bg-[#1C1C1C]/50'
+                    } rounded-md`}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
+
               <div className="pt-2 border-t border-[#2A2A2A] mt-2">
                 {user ? (
                   <div className="space-y-2">
                     <div className="px-3 py-2">
                       <div className="flex items-center space-x-2 text-[#E0E0E0] text-sm">
-                        <div 
+                        <div
                           className="w-4 h-4 wallet-icon"
-                          dangerouslySetInnerHTML={{ __html: user.walletIcon }}
+                          dangerouslySetInnerHTML={{ __html: user?.walletIcon }}
                         />
-                        <span className="font-mono">{user.truncatedAddress}</span>
+                        <span className="font-mono">{user?.truncatedAddress}</span>
                       </div>
                     </div>
                     <Link to="/dashboard" onClick={() => setIsOpen(false)}>
@@ -225,9 +278,9 @@ const Navbar = () => {
                         Dashboard
                       </Button>
                     </Link>
-                    <Button 
+                    <Button
                       onClick={handleDisconnect}
-                      variant="ghost" 
+                      variant="ghost"
                       className="w-full text-[#B3B3B3] hover:text-[#E0E0E0] hover:bg-[#1C1C1C]"
                     >
                       <LogOut className="h-4 w-4 mr-2" />
@@ -235,7 +288,7 @@ const Navbar = () => {
                     </Button>
                   </div>
                 ) : (
-                  <Button 
+                  <Button
                     onClick={() => {
                       setIsWalletModalOpen(true);
                       setIsOpen(false);
@@ -252,9 +305,9 @@ const Navbar = () => {
         )}
       </nav>
 
-      <WalletModal 
-        isOpen={isWalletModalOpen} 
-        onClose={() => setIsWalletModalOpen(false)} 
+      <WalletModal
+        isOpen={isWalletModalOpen}
+        onClose={() => setIsWalletModalOpen(false)}
       />
     </>
   );
