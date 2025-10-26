@@ -30,10 +30,21 @@ const MediumIcon = () => (
 );
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
   const currentYear = new Date().getFullYear();
 
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (email) {
+      setSubscribed(true);
+      setTimeout(() => setSubscribed(false), 3000);
+      setEmail('');
+    }
+  };
+
   return (
-    <footer className="bg-gradient-to-t from-[#161616] to-[#0A0A0A] border-t border-white/10">
+    <footer className="bg-gradient-to-t from-[#081F2C] via-[#0A0A0A] to-[#0A0A0A] border-t border-[#2EE6D6]/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -46,24 +57,73 @@ const Footer = () => {
               />
               <span className="text-xl font-bold text-white">Averix</span>
             </div>
-            <p className="text-gray-300 mb-6 max-w-sm">
+            <p className="text-[#A4F4F9] mb-6 max-w-sm">
               Building the future of decentralized finance through disciplined prop trading with Web3 incentives.
             </p>
-            <div className="flex space-x-4">
+            
+            {/* Social Links */}
+            <div className="flex space-x-4 mb-6">
               <a 
-                href="https://t.me/averix_founder" 
+                href="https://t.me/averix_official" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-[#2EE6D6] hover:text-[#A4F4F9] transition-colors p-2 rounded-lg hover:bg-[#2EE6D6]/10"
+                title="Join Telegram"
               >
-                <MessageCircle className="h-5 w-5" />
+                <TelegramIcon />
               </a>
               <a 
-                href="mailto:averix.found@gmail.com" 
-                className="text-gray-400 hover:text-white transition-colors"
+                href="https://twitter.com/averix_finance" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#2EE6D6] hover:text-[#A4F4F9] transition-colors p-2 rounded-lg hover:bg-[#2EE6D6]/10"
+                title="Follow on X"
               >
-                <Mail className="h-5 w-5" />
+                <TwitterIcon />
               </a>
+              <a 
+                href="https://discord.gg/averix" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#2EE6D6] hover:text-[#A4F4F9] transition-colors p-2 rounded-lg hover:bg-[#2EE6D6]/10"
+                title="Join Discord"
+              >
+                <DiscordIcon />
+              </a>
+              <a 
+                href="https://medium.com/@averix" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#2EE6D6] hover:text-[#A4F4F9] transition-colors p-2 rounded-lg hover:bg-[#2EE6D6]/10"
+                title="Read on Medium"
+              >
+                <MediumIcon />
+              </a>
+            </div>
+
+            {/* Email Subscription */}
+            <div className="max-w-sm">
+              <h4 className="text-white font-semibold mb-2">Stay Updated</h4>
+              <form onSubmit={handleSubscribe} className="flex gap-2">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-[#081F2C] border-[#2EE6D6]/30 text-white placeholder:text-gray-400"
+                  required
+                />
+                <Button 
+                  type="submit"
+                  size="sm"
+                  className="bg-[#2EE6D6] text-[#081F2C] hover:bg-[#A4F4F9] shrink-0"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
+              </form>
+              {subscribed && (
+                <p className="text-[#2EE6D6] text-sm mt-2">Thanks for subscribing!</p>
+              )}
             </div>
           </div>
 
