@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../ui/card';
+import { Button } from '../ui/button';
 import { Shield, TrendingUp, Award, Users } from 'lucide-react';
 
 const About = () => {
